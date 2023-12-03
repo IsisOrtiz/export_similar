@@ -43,10 +43,10 @@ def process(_data1, _data2, _cosine_similarities):
 
     total_iterations_raiz = len(_data1)
 
-    progress_text_raiz = "Agurade o processamento dos dados do arquivo raiz"
+    progress_text_raiz = "Processamento do primeiro arquivo."
     progess_bar_raiz = st.progress(0, text=progress_text_raiz)
 
-    progress_text = "Por favor agurde o processamento dos dados."
+    progress_text = "Processamento do segundo arquivo."
     progess_bar = st.progress(0, text=progress_text)
 
 
@@ -120,58 +120,61 @@ def main():
     
     cosine_similarities = None
 
-    st.title('Exportação de frases, conforme similaridade - v0.2.1 !')
+    st.title('Exportação de frases, conforme similaridade - v0.2.2 !')
     st.title(':blue[Isis] :sunglasses:')
     st.write('Similaridade selecionada: ', indice_predict)
     upload_file1()
     upload_file2()
 
     if len(dados1) > 0 and len(dados2) > 0:
-        # Calculando os vetores médios para cada lista de frases
-        vectors_data1 = [get_sentence_vector(sentence) for sentence in dados1]
-        vectors_data2 = [get_sentence_vector(sentence) for sentence in dados2]
+       with st.spinner(text="Aguarde..."):
+            # Calculando os vetores médios para cada lista de frases
+            vectors_data1 = [get_sentence_vector(sentence) for sentence in dados1]
+            vectors_data2 = [get_sentence_vector(sentence) for sentence in dados2]
 
-        # Normalizando os vetores
-        vectors_data1_normalized = [vector / np.linalg.norm(vector) for vector in vectors_data1]
-        vectors_data2_normalized = [vector / np.linalg.norm(vector) for vector in vectors_data2]
+            # Normalizando os vetores
+            vectors_data1_normalized = [vector / np.linalg.norm(vector) for vector in vectors_data1]
+            vectors_data2_normalized = [vector / np.linalg.norm(vector) for vector in vectors_data2]
 
-        # Calculando a similaridade de cosseno para todas as combinações de frases
-        cosine_similarities = np.zeros((len(dados1), len(dados2)))
+            # Calculando a similaridade de cosseno para todas as combinações de frases
+            cosine_similarities = np.zeros((len(dados1), len(dados2)))
 
-        for i, vector1 in enumerate(vectors_data1_normalized):
-            for j, vector2 in enumerate(vectors_data2_normalized):
-                cosine_similarities[i, j] = np.dot(vector1, vector2)
+            for i, vector1 in enumerate(vectors_data1_normalized):
+                for j, vector2 in enumerate(vectors_data2_normalized):
+                    cosine_similarities[i, j] = np.dot(vector1, vector2)
 
-    col1, col2, col3, col4, col5, col6  = st.columns(6, gap="small")
+          
 
-    with col1:
-        btnProcess = st.button("processar")
+            col1, col2, col3, col4, col5, col6  = st.columns(6, gap="small")
 
-    with col2:
-        btnExport = st.button("exportar")
+            with col1:
+                btnProcess = st.button("processar")
 
-    if btnProcess:
-        if len(dados1) == 0 or len(dados2) == 0:
-            st.write("Não existem dados para processar!")
-        else:
-            #Processar dados
-            dados_processados = process(dados1, dados2, cosine_similarities)
-            st.write(dados_processados)
-    elif btnExport:
-        if len(dados1) == 0 or len(dados2) == 0:
-            st.write("Não existem dados para processar!")
-        else:
-            #Processar dados
-            dados_processados = process(dados1, dados2, cosine_similarities)
-            csv = convert_df(dados_processados)
-            st.download_button(
-            "Press to Download CSV",
-            csv,
-            "file.csv",
-            "text/csv",
-            key='download-csv'
-            )
+            with col2:
+                btnExport = st.button("exportar")
 
+            if btnProcess:
+                if len(dados1) == 0 or len(dados2) == 0:
+                    st.write("Não existem dados para processar!")
+                else:
+                    #Processar dados
+                    dados_processados = process(dados1, dados2, cosine_similarities)
+                    st.write(dados_processados)
+            elif btnExport:
+                if len(dados1) == 0 or len(dados2) == 0:
+                    st.write("Não existem dados para processar!")
+                else:
+                    #Processar dados
+                    dados_processados = process(dados1, dados2, cosine_similarities)
+                    csv = convert_df(dados_processados)
+                    st.download_button(
+                    "Press to Download CSV",
+                    csv,
+                    "file.csv",
+                    "text/csv",
+                    key='download-csv'
+                    )
+            st.success('Processo concluído!')
 ##########################################################
 
 
