@@ -15,6 +15,7 @@ indice_predict = st.sidebar.slider(
     )
 
 
+
 def convert_df(_data):
     df = pd.DataFrame(_data, columns = ['frase1', 'frase2', 'similaridade', 'indice'])
     return df.to_csv(index=False, sep=";").encode('utf-8')
@@ -29,14 +30,25 @@ def getindice():
     return indice_predict
 #funcao para processar os dados
 def process(_data1, _data2):
+    
     _dados_processados = []
-    #similaridade = getsimilarity(data1, data2)
+    total_iterations = len(_data1) * len(_data2)
+    current_iteration = 0
+
+    progress_text = "Por favor agurde o processamento dos dados ."
+    progess_bar = st.progress(0, text=progress_text)
+
     for item1 in _data1:
         for item2 in _data2:
             similaridade = getsimilarity(item1, item2)
+            current_iteration += 1
             if similaridade >= indice_predict:
                 _dados_processados.append([item1, item2, similaridade, indice_predict])
+            
+            current_progress = (current_iteration / total_iterations) 
+            progess_bar.progress(current_progress, text=progress_text)
 
+    progess_bar.empty()
     return _dados_processados
 
 #Calcula a similaridade de frases########################
