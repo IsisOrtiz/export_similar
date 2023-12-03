@@ -1,15 +1,9 @@
-import subprocess
-
-# Comando para baixar o modelo 'pt_core_news_sm'
-comando_download = "python -m spacy download pt_core_news_sm"
-
-# Executa o comando no terminal
-subprocess.run(comando_download, shell=True)
-
 from io import StringIO
 import spacy
 import streamlit as st
 import pandas as pd
+
+spacy.cli.download("pt_core_news_sm")
 
 nlp = spacy.load('pt_core_news_sm')
 dados1 = []
