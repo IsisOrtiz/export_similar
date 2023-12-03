@@ -33,20 +33,35 @@ def process(_data1, _data2):
     
     _dados_processados = []
     total_iterations = len(_data1) * len(_data2)
+    total_iterations_raiz = len(_data1)
     current_iteration = 0
+    current_iteration_raiz = 0
+
+    progress_text_raiz = "Agurade o processamento dos dados do arquivo raiz"
+    progess_bar_raiz = st.progress(0, text=progress_text_raiz)
 
     progress_text = "Por favor agurde o processamento dos dados ."
     progess_bar = st.progress(0, text=progress_text)
 
     for item1 in _data1:
+
+        current_iteration_raiz += 1
+        current_progress_raiz = (current_iteration_raiz / total_iterations_raiz)
+        progess_bar_raiz.progress(current_progress_raiz, text=progress_text_raiz)
+
         for item2 in _data2:
-            similaridade = getsimilarity(item1, item2)
+            
             current_iteration += 1
+            current_progress = (current_iteration / total_iterations) 
+            progess_bar.progress(current_progress, text=progress_text)
+
+            similaridade = getsimilarity(item1, item2)
             if similaridade >= indice_predict:
                 _dados_processados.append([item1, item2, similaridade, indice_predict])
             
-            current_progress = (current_iteration / total_iterations) 
-            progess_bar.progress(current_progress, text=progress_text)
+
+
+        progess_bar_raiz.empty()
 
     progess_bar.empty()
     return _dados_processados
