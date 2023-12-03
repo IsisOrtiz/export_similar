@@ -30,41 +30,33 @@ def getindice():
     return indice_predict
 #funcao para processar os dados
 def process(_data1, _data2):
-    
     _dados_processados = []
-    total_iterations = len(_data1) * len(_data2)
+
     total_iterations_raiz = len(_data1)
-    current_iteration = 0
-    current_iteration_raiz = 0
 
     progress_text_raiz = "Agurade o processamento dos dados do arquivo raiz"
     progess_bar_raiz = st.progress(0, text=progress_text_raiz)
 
-    progress_text = "Por favor agurde o processamento dos dados ."
+    progress_text = "Por favor agurde o processamento dos dados."
     progess_bar = st.progress(0, text=progress_text)
 
-    for item1 in _data1:
-
-        current_iteration_raiz += 1
-        current_progress_raiz = (current_iteration_raiz / total_iterations_raiz)
+    for current_iteration_raiz, item1 in enumerate(_data1, start=1):
+        current_progress_raiz = current_iteration_raiz / total_iterations_raiz
         progess_bar_raiz.progress(current_progress_raiz, text=progress_text_raiz)
 
-        for item2 in _data2:
-            
-            current_iteration += 1
-            current_progress = (current_iteration / total_iterations) 
+        for current_iteration, item2 in enumerate(_data2, start=1):
+            current_progress = current_iteration / len(_data2)
             progess_bar.progress(current_progress, text=progress_text)
 
             similaridade = getsimilarity(item1, item2)
             if similaridade >= indice_predict:
                 _dados_processados.append([item1, item2, similaridade, indice_predict])
-            
 
-
-        progess_bar_raiz.empty()
-
+    progess_bar_raiz.empty()
     progess_bar.empty()
+
     return _dados_processados
+
 
 #Calcula a similaridade de frases########################
 def getsimilarity(phrase1:str , phrase2:str):
@@ -91,6 +83,7 @@ def upload_file1():
         # To read file line by line:
         for line in string_data:
             # Exibir cada linha no Streamlit
+            line = line.strip()
             dados1.append(line)
 #faz upload do arquivo 2
 def upload_file2():
@@ -107,6 +100,7 @@ def upload_file2():
         # To read file line by line:
         for line in string_data:
             # Exibir cada linha no Streamlit
+            line = line.strip()
             dados2.append(line)
 
 def main():
