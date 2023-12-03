@@ -17,7 +17,7 @@ indice_predict = st.sidebar.slider(
 
 def convert_df(_data):
     df = pd.DataFrame(_data, columns = ['frase1', 'frase2', 'similaridade', 'indice'])
-    return df.to_csv(index=False).encode('utf-8')
+    return df.to_csv(index=False, sep=";").encode('utf-8')
 
 
 #funcao para obter o indice de similaridade
