@@ -84,7 +84,7 @@ def getsimilarity(phrase1:str , phrase2:str):
 #faz upload do arquivo 1
 def upload_file1():
     # Widget para upload de arquivo
-    uploaded_file = st.file_uploader("Selecione o primeiro arquivo txt , até 50MB", type="txt")
+    uploaded_file = st.file_uploader("Selecione o primeiro arquivo txt", type="txt")
 
     if uploaded_file is not None:
 
