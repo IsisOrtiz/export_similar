@@ -7,7 +7,7 @@ import pandas as pd
 nlp = spacy.load('pt_core_news_sm')
 dados1 = []
 dados2 = []
-
+dados_processados = []
 btnExport = None
 btnProcess = None
 indice_predict = st.sidebar.slider(
