@@ -3,8 +3,6 @@ import spacy
 import streamlit as st
 import pandas as pd
 
-spacy.cli.download("pt_core_news_sm")
-
 nlp = spacy.load('pt_core_news_sm')
 dados1 = []
 dados2 = []
