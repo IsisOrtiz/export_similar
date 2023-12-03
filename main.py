@@ -84,6 +84,7 @@ def getsimilarity(phrase1:str , phrase2:str):
 #faz upload do arquivo 1
 def upload_file1():
     # Widget para upload de arquivo
+    dados1=[]
     uploaded_file = st.file_uploader("Selecione o primeiro arquivo txt", type="txt")
 
     if uploaded_file is not None:
@@ -101,6 +102,7 @@ def upload_file1():
 #faz upload do arquivo 2
 def upload_file2():
     # Widget para upload de arquivo
+    dados2=[]
     uploaded_file = st.file_uploader("Selecione o segundo arquivo txt", type="txt")
 
     if uploaded_file is not None:
@@ -120,7 +122,7 @@ def main():
     
     cosine_similarities = None
 
-    st.title('Exportação de frases, conforme similaridade - v0.2 !')
+    st.title('Exportação de frases, conforme similaridade - v0.2.1 !')
     st.title(':blue[Isis] :sunglasses:')
     st.write('Similaridade selecionada: ', indice_predict)
     upload_file1()
