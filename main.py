@@ -104,7 +104,7 @@ def upload_file2():
             dados2.append(line)
 
 def main():
-    st.title('Exportação de frases, conforme similaridade!')
+    st.title('Exportação de frases, conforme similaridade - v0.1 !')
     st.title(':blue[Isis] :sunglasses:')
     st.write('Similaridade selecionada: ', indice_predict)
     upload_file1()
