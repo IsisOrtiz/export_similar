@@ -97,7 +97,8 @@ def upload_file1():
         for line in string_data:
             # Exibir cada linha no Streamlit
             line = line.strip()
-            dados1.append(line)
+            if line:
+                dados1.append(line)
 #faz upload do arquivo 2
 def upload_file2():
     # Widget para upload de arquivo
@@ -114,13 +115,14 @@ def upload_file2():
         for line in string_data:
             # Exibir cada linha no Streamlit
             line = line.strip()
-            dados2.append(line)
+            if line:
+                dados2.append(line)
 
 def main():
     
     cosine_similarities = None
 
-    st.title('Exportação de frases, conforme similaridade - v0.2.2 !')
+    st.title('Exportação de frases, conforme similaridade - v0.2.3 !')
     st.title(':blue[Isis] :sunglasses:')
     st.write('Similaridade selecionada: ', indice_predict)
     upload_file1()
