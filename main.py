@@ -122,7 +122,7 @@ def main():
     
     cosine_similarities = None
 
-    st.title('Exportação de frases, conforme similaridade - v0.2.3 !')
+    st.title('Exportação de frases, conforme similaridade !')
     st.title(':blue[Isis] :sunglasses:')
     st.write('Similaridade selecionada: ', indice_predict)
     upload_file1()
